@@ -34,4 +34,4 @@ services:
 
 networks:
   net:
-    driver: overlay
+    # driver: overlay
