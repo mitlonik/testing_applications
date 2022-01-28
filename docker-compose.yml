@@ -12,6 +12,26 @@ services:
     networks:
       - net
 
+  test_golang_app_2:
+    image: test_golang_app_2
+    container_name: test_golang_app_2
+    build:
+      context: app/golang/
+      dockerfile: Dockerfile
+      args:
+        TEST_ENV: $TEST_ENV
+    networks:
+      - net
+    deploy:
+      labels:
+        docker.container.labels.description: "collect_logs_with_filebeat"
+        co.elastic.logs/enabled: "true" # for Filebeat
+        collect_logs_with_filebeat: "true"
+    labels:
+        docker.container.labels.description: "collect_logs_with_filebeat"
+        co.elastic.logs/enabled: "true" # for Filebeat
+        collect_logs_with_filebeat: "true"
+
 networks:
   net:
     driver: overlay

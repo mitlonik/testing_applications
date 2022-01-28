@@ -15,7 +15,7 @@ func main() {
 		io.WriteString(os.Stderr,"This is the line for standard error output.\n")
 
 		// print every 5 seconds how long the program is running
-		for range time.Tick(time.Second * 5) {
+		for range time.Tick(time.Second * 30) {
 			go func() {
 				fmt.Println(os.Stdout, time.Now())
 			}()
