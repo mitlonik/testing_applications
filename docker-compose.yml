@@ -11,6 +11,14 @@ services:
         TEST_ENV: $TEST_ENV
     networks:
       - net
+    ## for Docker EE - commercial license
+    # logging:
+    #   driver: "fluentd"
+    #   options:
+    #     fluentd-address: localhost:24224
+    #     tag: apps.logs
+    labels:
+      co.elastic.logs/enabled: "false" # for Filebeat - don't listen to this container's logs
 
   test_golang_app_2:
     image: test_golang_app_2
@@ -28,9 +36,9 @@ services:
         co.elastic.logs/enabled: "true" # for Filebeat
         collect_logs_with_filebeat: "true"
     labels:
-        docker.container.labels.description: "collect_logs_with_filebeat"
-        co.elastic.logs/enabled: "true" # for Filebeat
-        collect_logs_with_filebeat: "true"
+      docker.container.labels.description: "collect_logs_with_filebeat"
+      co.elastic.logs/enabled: "true" # for Filebeat
+      collect_logs_with_filebeat: "true"
 
 networks:
   net:
