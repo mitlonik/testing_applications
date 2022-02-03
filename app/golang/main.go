@@ -25,11 +25,11 @@ func main() {
 
 		// --- JSON --- //
 		data_log := map[string]interface{}{
-			"@timestamp": 2022-02-01T08:50:02.711889+00:00,
+			// "@timestamp": 2022-02-01T08:50:02.711889+00:00,
 			"@source": "b58a81938fbf",
 			"@fields": "",
 			"@message": "Api request",
-			"@tags": ["api-request-logger"],
+			// "@tags": ["api-request-logger"],
 			"@type": "api-request-response",
 		}
 
