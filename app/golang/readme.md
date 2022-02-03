@@ -3,4 +3,5 @@
 
 useful links:
 
-[Hello World Go + DockerCompose](https://medium.com/@hackintoshrao/hello-world-go-dockercompose-38e0f28618dc)
+[Веб-приложение на Golang для чтения и записи данных в JSON файл
+](https://uproger.com/veb-prilozhenie-na-golang-dlya-chteniya-i-zapisi-dannyh-v-json-fajl/)

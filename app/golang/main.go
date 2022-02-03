@@ -1,23 +1,24 @@
 package main
 
 import (
-        "fmt"
-		"io"
-        "os"
-		"time" // https://pkg.go.dev/time
+	handlers "handlers"
+	"net/http"
 )
 
 func main() {
-        fmt.Println("Print from the Go program")
-        fmt.Println(os.Getenv("TEST_ENV"))
+	http.HandleFunc("/addnewuser/", handlers.AddNewUserFunc)
+	http.HandleFunc("/notsucceded", handlers.NotSucceded)
 
-		io.WriteString(os.Stdout,"This is the line to standard output.\n")
-		io.WriteString(os.Stderr,"This is the line for standard error output.\n")
+	http.HandleFunc("/deleted", handlers.DeletedFunc)
+	http.HandleFunc("/deleteuser/deleted", handlers.DeleteUserFunc)
+	http.HandleFunc("/deleteuser/", handlers.DeleteUserServe)
+	http.HandleFunc("/deleteuser/notsuccededdelete", handlers.NotSuccededDelete)
 
-		// print every 5 seconds how long the program is running
-		for range time.Tick(time.Second * 30) {
-			go func() {
-				fmt.Println(os.Stdout, time.Now())
-			}()
-		}
+	http.HandleFunc("/", handlers.IndexFunc)
+
+	http.HandleFunc("/showuser/show", handlers.ShowUserFunc)
+	http.HandleFunc("/showuser/", handlers.ShowUser)
+	http.HandleFunc("/showuser/notsuccededshow/", handlers.NotSuccededShow)
+
+	http.ListenAndServe(":8080", nil)
 }
