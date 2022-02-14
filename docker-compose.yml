@@ -1,5 +1,11 @@
 version: '3.7'
 
+networks:
+  net:
+    # driver: overlay
+  only_fbeat:
+    external: true
+
 services:
   simple_golang_app:
     image: simple_golang_app
@@ -11,14 +17,9 @@ services:
         TEST_ENV: $TEST_ENV
     networks:
       - net
-    ## for Docker EE - commercial license
-    # logging:
-    #   driver: "fluentd"
-    #   options:
-    #     fluentd-address: localhost:24224
-    #     tag: apps.logs
     labels:
-      co.elastic.logs/enabled: "false" # for Filebeat - don't listen to this container's logs
+        co.elastic.logs/enabled: "true" # for Filebeat
+
 
   test_golang_app_2:
     image: test_golang_app_2
@@ -26,20 +27,7 @@ services:
     build:
       context: app/golang/
       dockerfile: Dockerfile
-      args:
-        TEST_ENV: $TEST_ENV
     networks:
       - net
-    deploy:
-      labels:
-        docker.container.labels.description: "collect_logs_with_filebeat"
-        co.elastic.logs/enabled: "true" # for Filebeat
-        collect_logs_with_filebeat: "true"
-    labels:
-      docker.container.labels.description: "collect_logs_with_filebeat"
-      co.elastic.logs/enabled: "true" # for Filebeat
-      collect_logs_with_filebeat: "true"
-
-networks:
-  net:
-    # driver: overlay
+    # labels:
+    #     co.elastic.logs/enabled: "true" # for Filebeat
